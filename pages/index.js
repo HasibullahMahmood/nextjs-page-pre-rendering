@@ -1,6 +1,8 @@
-import { Component } from 'react';
 import path from 'path';
 import fs from 'fs/promises';
+
+import { Component } from 'react';
+import Link from 'next/link';
 
 class HomePage extends Component {
 	render() {
@@ -9,7 +11,9 @@ class HomePage extends Component {
 			<div>
 				<ul>
 					{products.map((item) => (
-						<li key={item.id}>{item.title}</li>
+						<li key={item.id}>
+							<Link href={`/${item.id}`}>{item.title}</Link>
+						</li>
 					))}
 				</ul>
 			</div>
@@ -25,6 +29,7 @@ export const getStaticProps = async () => {
 		props: {
 			products: data.products,
 		},
+		revalidate: 10,
 	};
 };
 
